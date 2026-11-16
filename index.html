@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaisetsu — Video Editor, Colorist, Brand Designer &amp; Social Media Manager</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans, Space Grotesk, Playfair Display, JetBrains Mono & Great Vibes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            script: ['Great Vibes', 'cursive'],
+          },
+          colors: {
+            obsidian: '#08080c',
+            surface: '#111118',
+            surfaceLight: '#191924',
+            indigoAccent: '#6366f1',
+            discordBlurple: '#5865F2',
+            amberAccent: '#f59e0b',
+            emeraldAccent: '#10b981',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #08080c;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #08080c;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #242433;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6366f1;
+    }
+
+    .hero-glow-indigo {
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.16) 0%, rgba(8, 8, 12, 0) 70%);
+    }
+    .hero-glow-amber {
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.13) 0%, rgba(8, 8, 12, 0) 70%);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .no-select {
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    @keyframes scrollCredits {
+      0% { transform: translateY(55%); }
+      100% { transform: translateY(-65%); }
+    }
+    .animate-credits {
+      animation: scrollCredits 14s linear infinite;
+    }
+
+    @keyframes pulseTitleGlow {
+      0%, 100% { opacity: 0.88; letter-spacing: 0.18em; }
+      50% { opacity: 1; letter-spacing: 0.22em; }
+    }
+    .animate-title-card {
+      animation: pulseTitleGlow 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-indigoAccent selection:text-white">
+
+  <!-- ===================================================================== -->
+  <!-- 1. STICKY NAVIGATION BAR                                              -->
+  <!-- ===================================================================== -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-obsidian/85 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigoAccent via-emeraldAccent to-amberAccent p-[1.5px]">
+          <div class="w-full h-full bg-obsidian rounded-[10px] flex items-center justify-center font-display font-bold text-lg tracking-tighter text-white group-hover:text-amberAccent transition-colors">
+            K
+          </div>
+        </div>
+        <span class="font-display font-bold text-xl tracking-widest text-white">KAISETSU</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
+        <a href="#grading-lab" class="hover:text-emeraldAccent transition-colors">Color Lab</a>
+        <a href="#work" class="hover:text-amberAccent transition-colors">Sample Work</a>
+        <a href="#services" class="hover:text-indigoAccent transition-colors">Services</a>
+        <a href="https://drive.google.com/drive/folders/1vkj7a3zdtStD7N0KTf2BzYruTCGEMOZJ" target="_blank" rel="noopener noreferrer" class="hover:text-amberAccent transition-colors inline-flex items-center gap-1.5">
+          <i data-lucide="folder-open" class="w-3.5 h-3.5 text-amberAccent"></i>
+          <span>Drive Vault</span>
+        </a>
+        <a href="#contact" class="hover:text-amberAccent transition-colors">Contact</a>
+      </nav>
+
+      <!-- Header Actions & Mobile Menu Toggle -->
+      <div class="flex items-center gap-2.5">
+        <a href="https://discord.gg/WqyyGvub" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-discordBlurple/15 border border-discordBlurple/40 text-indigo-300 hover:bg-discordBlurple hover:text-white font-semibold text-xs transition-all">
+          <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+          <span>Discord Server</span>
+        </a>
+        <a href="#contact" class="px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-white text-obsidian font-semibold text-xs sm:text-sm hover:bg-amberAccent hover:text-obsidian transition-all shadow-lg shadow-white/5">
+          Work With Me
+        </a>
+        <button id="mobile-menu-btn" aria-label="Toggle Menu" class="md:hidden p-2.5 rounded-xl bg-surface border border-white/10 text-slate-200 hover:text-amberAccent">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Hamburger Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden bg-surface border-b border-white/10 px-6 py-5 space-y-3.5">
+      <a href="#grading-lab" class="block text-sm font-medium text-slate-200 hover:text-emeraldAccent">Color Grading Lab</a>
+      <a href="#work" class="block text-sm font-medium text-slate-200 hover:text-amberAccent">Selected Sample Work (7)</a>
+      <a href="#services" class="block text-sm font-medium text-slate-200 hover:text-indigoAccent">Services &amp; Flexible Rates</a>
+      <a href="https://drive.google.com/drive/folders/1vkj7a3zdtStD7N0KTf2BzYruTCGEMOZJ" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm font-medium text-amberAccent hover:underline">
+        <i data-lucide="folder-open" class="w-4 h-4"></i>
+        <span>Full Google Drive Vault</span>
+      </a>
+      <a href="https://discord.gg/WqyyGvub" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm font-medium text-indigo-300 hover:underline">
+        <i data-lucide="message-square" class="w-4 h-4"></i>
+        <span>Join Discord Server (discord.gg/WqyyGvub)</span>
+      </a>
+      <a href="#contact" class="block text-sm font-medium text-slate-200 hover:text-amberAccent">Contact &amp; Inquiries</a>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- 2. HERO SECTION                                                       -->
+  <!-- ===================================================================== -->
+  <section class="relative pt-32 pb-20 sm:pt-40 sm:pb-28 overflow-hidden">
+    <div class="absolute -top-24 -left-24 w-96 h-96 hero-glow-indigo pointer-events-none"></div>
+    <div class="absolute top-20 -right-24 w-96 h-96 hero-glow-amber pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <!-- Status Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface border border-white/10 text-xs sm:text-sm font-medium text-slate-300 mb-6">
+        <span class="w-2 h-2 rounded-full bg-emeraldAccent animate-pulse"></span>
+        Available for Freelance &amp; Monthly Retainers
+      </div>
+
+      <!-- Display Name -->
+      <h1 class="font-display font-bold text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white mb-4">
+        KAISETSU
+      </h1>
+
+      <!-- Core Disciplines Headline -->
+      <p class="font-display text-lg sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-indigoAccent via-emeraldAccent to-amberAccent bg-clip-text text-transparent max-w-4xl mx-auto mb-6">
+        Video Editing • Cinematic Color Grading • Brand &amp; Logo Design • Posters &amp; Thumbnails • Social Media Management
+      </p>
+
+      <!-- Humanized Bio -->
+      <p class="text-slate-300 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed mb-10">
+        I'm Kaisetsu — a visual editor, colorist, and brand designer helping creators and brands turn raw footage and ideas into scroll-stopping content. From mood-driven color grades and high-retention edits to clean logos and social media management, I craft cohesive visuals tailored to your audience.
+      </p>
+
+      <!-- Primary CTA Buttons -->
+      <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3.5">
+        <a href="#work" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-indigoAccent text-white font-semibold text-sm sm:text-base hover:brightness-110 transition-all shadow-lg shadow-indigoAccent/25 flex items-center justify-center gap-2">
+          <span>Explore Sample Work</span>
+          <i data-lucide="arrow-down" class="w-4 h-4"></i>
+        </a>
+        <a href="https://drive.google.com/drive/folders/1vkj7a3zdtStD7N0KTf2BzYruTCGEMOZJ" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-amberAccent text-obsidian font-bold text-sm sm:text-base hover:brightness-110 transition-all shadow-lg shadow-amberAccent/20 flex items-center justify-center gap-2">
+          <i data-lucide="folder-open" class="w-4 h-4"></i>
+          <span>Full Drive Vault</span>
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+        </a>
+        <a href="https://discord.gg/WqyyGvub" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-discordBlurple text-white font-semibold text-sm sm:text-base hover:brightness-110 transition-all shadow-lg shadow-discordBlurple/25 flex items-center justify-center gap-2">
+          <i data-lucide="message-square" class="w-4 h-4"></i>
+          <span>Join Discord Server</span>
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+
+      <!-- Role Tags -->
+      <div class="mt-14 pt-8 border-t border-white/5 flex flex-wrap items-center justify-center gap-3 text-xs text-slate-300">
+        <span class="px-3.5 py-1.5 rounded-lg bg-surface/90 border border-white/10 inline-flex items-center gap-1.5">
+          <i data-lucide="film" class="w-3.5 h-3.5 text-amberAccent"></i>Video Editing
+        </span>
+        <span class="px-3.5 py-1.5 rounded-lg bg-surface/90 border border-white/10 inline-flex items-center gap-1.5">
+          <i data-lucide="sliders" class="w-3.5 h-3.5 text-emeraldAccent"></i>Cinematic Color Grading
+        </span>
+        <span class="px-3.5 py-1.5 rounded-lg bg-surface/90 border border-white/10 inline-flex items-center gap-1.5">
+          <i data-lucide="pen-tool" class="w-3.5 h-3.5 text-indigoAccent"></i>Brand &amp; Logo Design
+        </span>
+        <span class="px-3.5 py-1.5 rounded-lg bg-surface/90 border border-white/10 inline-flex items-center gap-1.5">
+          <i data-lucide="image" class="w-3.5 h-3.5 text-amberAccent"></i>Posters &amp; Thumbnails
+        </span>
+        <span class="px-3.5 py-1.5 rounded-lg bg-surface/90 border border-white/10 inline-flex items-center gap-1.5">
+          <i data-lucide="trending-up" class="w-3.5 h-3.5 text-emeraldAccent"></i>Social Media Management
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 3. INTERACTIVE BEFORE / AFTER COLOR GRADING LAB                       -->
+  <!-- ===================================================================== -->
+  <section id="grading-lab" class="py-20 bg-surface/40 border-y border-white/5 reveal">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header & Controls -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-6">
+        <div>
+          <span class="text-xs font-mono font-semibold uppercase tracking-widest text-emeraldAccent">Sample 01 • Interactive Split Lab</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-1">Misty Meadow &amp; Golden Sunset</h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-2 max-w-2xl">
+            Drag the split handle to compare the full-frame <span class="text-slate-200 font-medium">Misty Desaturated Raw</span> frame (<code class="font-mono text-xs text-slate-300">1000040078.jpg</code>) against the <span class="text-amberAccent font-medium">Golden-Hour Peach &amp; Deep Forest Emerald</span> grade (<code class="font-mono text-xs text-amberAccent">1000040080.png</code>) — cropped cleanly without black letterbox bars.
+          </p>
+        </div>
+
+        <!-- Preset & Local Photo Tester Buttons -->
+        <div class="flex flex-wrap items-center gap-2" id="grade-presets">
+          <button data-preset="golden-meadow" data-label="Golden Hour Peach & Deep Forest Green" class="preset-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-amberAccent text-obsidian transition-all shadow-md">
+            Golden Sunset Grade
+          </button>
+          <button data-preset="teal-amber" data-label="Teal & Amber Cinema Look" class="preset-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-surface border border-white/10 text-slate-300 hover:border-white/30 transition-all">
+            Teal &amp; Amber Cinema
+          </button>
+          <label for="custom-grade-upload" class="cursor-pointer px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-surfaceLight border border-white/15 text-slate-200 hover:border-emeraldAccent/60 hover:text-emeraldAccent transition-all inline-flex items-center gap-1.5" title="Test your own photo with Kaisetsu's color grade">
+            <i data-lucide="upload" class="w-3.5 h-3.5 text-emeraldAccent"></i>
+            <span>Test Your Photo</span>
+            <input type="file" id="custom-grade-upload" accept="image/*" class="hidden" />
+          </label>
+          <button id="reset-sample-btn" type="button" class="hidden px-3 py-2 rounded-xl text-xs font-semibold bg-obsidian border border-white/15 text-slate-300 hover:text-amberAccent transition-all">
+            Reset Sample
+          </button>
+        </div>
+      </div>
+
+      <!-- Pixel-Aligned Full-Frame Before/After Slider -->
+      <div id="compare-container" class="relative w-full aspect-[4/3] sm:aspect-[16/11] max-h-[600px] rounded-2xl overflow-hidden border border-white/15 shadow-2xl no-select cursor-ew-resize group bg-obsidian">
+
+        <!-- AFTER LAYER (Graded Sunset Meadow) -->
+        <div id="graded-layer" class="absolute inset-0 w-full h-full">
+          <img id="after-grade-img" src="1000040080.png" alt="After Color Grade — Golden Sunset Cat Meadow" class="w-full h-full object-cover object-center scale-[1.15] block" onerror="this.classList.add('hidden'); document.getElementById('after-grade-canvas').classList.remove('hidden');" onload="this.classList.remove('hidden'); document.getElementById('after-grade-canvas').classList.add('hidden');" />
+          <canvas id="after-grade-canvas" class="hidden w-full h-full object-cover block"></canvas>
+
+          <div id="alt-grade-tint" class="hidden absolute inset-0 bg-gradient-to-tr from-cyan-950/60 via-teal-900/25 to-amber-500/40 mix-blend-color pointer-events-none"></div>
+
+          <span id="graded-badge" class="absolute bottom-4 right-4 px-3.5 py-1.5 rounded-lg bg-obsidian/85 backdrop-blur-md border border-amberAccent/40 text-amberAccent text-xs font-semibold tracking-wide shadow-lg">
+            AFTER: Golden Hour Peach &amp; Deep Forest Green
+          </span>
+        </div>
+
+        <!-- BEFORE LAYER (Raw Misty Monochrome) -->
+        <div id="before-wrapper" class="absolute inset-0 w-full h-full overflow-hidden" style="clip-path: inset(0 50% 0 0);">
+          <img id="before-grade-img" src="1000040078.jpg" alt="Before Color Grade — Misty Raw Cat Meadow" class="w-full h-full object-cover object-center block" onerror="this.classList.add('hidden'); document.getElementById('before-grade-canvas').classList.remove('hidden');" onload="this.classList.remove('hidden'); document.getElementById('before-grade-canvas').classList.add('hidden');" />
+          <canvas id="before-grade-canvas" class="hidden w-full h-full object-cover block"></canvas>
+
+          <span id="before-badge" class="absolute bottom-4 left-4 px-3.5 py-1.5 rounded-lg bg-obsidian/85 backdrop-blur-md border border-white/20 text-slate-200 text-xs font-semibold tracking-wide shadow-lg">
+            BEFORE: Misty Desaturated Raw
+          </span>
+        </div>
+
+        <!-- Draggable Split Handle -->
+        <div id="slider-handle" class="absolute top-0 bottom-0 w-0.5 bg-white shadow-[0_0_15px_rgba(255,255,255,0.9)] pointer-events-none" style="left: 50%;">
+          <div class="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-obsidian/90 border-2 border-white flex items-center justify-center text-white shadow-xl">
+            <i data-lucide="move-horizontal" class="w-4 h-4"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 4. FILTERABLE SAMPLE WORK GALLERY (ALL 7 SAMPLES)                     -->
+  <!-- ===================================================================== -->
+  <section id="work" class="py-24 reveal">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header & Filter Tabs -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
+        <div>
+          <span class="text-xs font-mono font-semibold uppercase tracking-widest text-indigoAccent">Curated Portfolio</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-1">Selected Sample Work</h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-2">
+            7 sample works spanning Color Grading, Logos &amp; Branding, Posters &amp; Graphics, and Video Editing. Click any card to inspect.
+          </p>
+          <div class="mt-3.5">
+            <a href="https://drive.google.com/drive/folders/1vkj7a3zdtStD7N0KTf2BzYruTCGEMOZJ" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-surface border border-amberAccent/40 text-amberAccent hover:bg-amberAccent hover:text-obsidian text-xs font-semibold transition-all shadow-md">
+              <i data-lucide="folder-open" class="w-3.5 h-3.5"></i>
+              <span>Browse All Raw &amp; Graded Files on Google Drive</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Category Filter Buttons -->
+        <div class="flex flex-wrap items-center gap-2" id="filter-tabs">
+          <button data-filter="all" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white text-obsidian transition-all">
+            All (7)
+          </button>
+          <button data-filter="grading" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-surface border border-white/10 text-slate-300 hover:border-white/30 transition-all">
+            Color Grading
+          </button>
+          <button data-filter="branding" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-surface border border-white/10 text-slate-300 hover:border-white/30 transition-all">
+            Logos &amp; Branding
+          </button>
+          <button data-filter="posters" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-surface border border-white/10 text-slate-300 hover:border-white/30 transition-all">
+            Posters &amp; Graphics
+          </button>
+          <button data-filter="video" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-surface border border-white/10 text-slate-300 hover:border-white/30 transition-all">
+            Video Editing
+          </button>
+        </div>
+      </div>
+
+      <!-- Project Cards Grid -->
+      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 5. SERVICES & FLEXIBLE PRICING SECTION                                -->
+  <!-- ===================================================================== -->
+  <section id="services" class="py-24 bg-surface/40 border-y border-white/5 reveal">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-mono font-semibold uppercase tracking-widest text-amberAccent">Capabilities</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-1">Services &amp; Creative Skills</h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-3">
+          End-to-end visual production and channel management built to help creators and brands grow consistently.
+        </p>
+      </div>
+
+      <!-- 5 Core Skill Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        <!-- Service 1: Video Editing -->
+        <div class="p-6 rounded-2xl bg-surface border border-white/10 hover:border-amberAccent/50 transition-all group">
+          <div class="w-11 h-11 rounded-xl bg-amberAccent/10 border border-amberAccent/25 flex items-center justify-center text-amberAccent mb-4 group-hover:scale-110 transition-transform">
+            <i data-lucide="scissors" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-display text-base font-bold text-white mb-2">Video Editing</h3>
+          <p class="text-slate-400 text-xs leading-relaxed mb-4">
+            High-retention Reels, Shorts, YouTube edits, beat-synced anime/cinematic AMVs, custom title cards, and crisp pacing.
+          </p>
+          <div class="flex flex-wrap gap-1.5 text-[10px] font-mono text-slate-300">
+            <span class="px-2 py-0.5 rounded bg-obsidian">Beat-Sync</span>
+            <span class="px-2 py-0.5 rounded bg-obsidian">Retention</span>
+          </div>
+        </div>
+
+        <!-- Service 2: Color Grading -->
+        <div class="p-6 rounded-2xl bg-surface border border-white/10 hover:border-emeraldAccent/50 transition-all group">
+          <div class="w-11 h-11 rounded-xl bg-emeraldAccent/10 border border-emeraldAccent/25 flex items-center justify-center text-emeraldAccent mb-4 group-hover:scale-110 transition-transform">
+            <i data-lucide="sliders" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-display text-base font-bold text-white mb-2">Color Grading</h3>
+          <p class="text-slate-400 text-xs leading-relaxed mb-4">
+            Transforming flat, desaturated footage into rich atmospheric grades—from warm sunset looks to moody cinema contrast.
+          </p>
+          <div class="flex flex-wrap gap-1.5 text-[10px] font-mono text-slate-300">
+            <span class="px-2 py-0.5 rounded bg-obsidian">Tone Curves</span>
+            <span class="px-2 py-0.5 rounded bg-obsidian">HSL</span>
+          </div>
+        </div>
+
+        <!-- Service 3: Logo & Brand Design -->
+        <div class="p-6 rounded-2xl bg-surface border border-white/10 hover:border-indigoAccent/50 transition-all group">
+          <div class="w-11 h-11 rounded-xl bg-indigoAccent/10 border border-indigoAccent/25 flex items-center justify-center text-indigoAccent mb-4 group-hover:scale-110 transition-transform">
+            <i data-lucide="pen-tool" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-display text-base font-bold text-white mb-2">Logo &amp; Brand Design</h3>
+          <p class="text-slate-400 text-xs leading-relaxed mb-4">
+            Boutique script marks, vintage emblems, and bold split-box wordmarks built for instant recognition across platforms.
+          </p>
+          <div class="flex flex-wrap gap-1.5 text-[10px] font-mono text-slate-300">
+            <span class="px-2 py-0.5 rounded bg-obsidian">Identities</span>
+            <span class="px-2 py-0.5 rounded bg-obsidian">Vector Marks</span>
+          </div>
+        </div>
+
+        <!-- Service 4: Thumbnails & Posters -->
+        <div class="p-6 rounded-2xl bg-surface border border-white/10 hover:border-amberAccent/50 transition-all group">
+          <div class="w-11 h-11 rounded-xl bg-amberAccent/10 border border-amberAccent/25 flex items-center justify-center text-amberAccent mb-4 group-hover:scale-110 transition-transform">
+            <i data-lucide="image" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-display text-base font-bold text-white mb-2">Thumbnails &amp; Posters</h3>
+          <p class="text-slate-400 text-xs leading-relaxed mb-4">
+            High-CTR YouTube thumbnails, Swiss-inspired editorial typography layouts, and conceptual graphic posters.
+          </p>
+          <div class="flex flex-wrap gap-1.5 text-[10px] font-mono text-slate-300">
+            <span class="px-2 py-0.5 rounded bg-obsidian">High-CTR</span>
+            <span class="px-2 py-0.5 rounded bg-obsidian">Typography</span>
+          </div>
+        </div>
+
+        <!-- Service 5: Social Media Management -->
+        <div class="p-6 rounded-2xl bg-surface border border-white/10 hover:border-emeraldAccent/50 transition-all group">
+          <div class="w-11 h-11 rounded-xl bg-emeraldAccent/10 border border-emeraldAccent/25 flex items-center justify-center text-emeraldAccent mb-4 group-hover:scale-110 transition-transform">
+            <i data-lucide="trending-up" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-display text-base font-bold text-white mb-2">Social Media Management</h3>
+          <p class="text-slate-400 text-xs leading-relaxed mb-4">
+            Content calendars, visual feed consistency, hook optimization, and channel packaging for sustained organic reach.
+          </p>
+          <div class="flex flex-wrap gap-1.5 text-[10px] font-mono text-slate-300">
+            <span class="px-2 py-0.5 rounded bg-obsidian">Strategy</span>
+            <span class="px-2 py-0.5 rounded bg-obsidian">Consistency</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom Rates & Flexible Pricing Callout -->
+      <div class="mt-14 rounded-2xl bg-gradient-to-r from-surface via-surfaceLight to-surface border border-white/10 p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xl">
+        <div class="space-y-2 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amberAccent/10 border border-amberAccent/25 text-amberAccent text-xs font-semibold">
+            <i data-lucide="handshake" class="w-3.5 h-3.5"></i>
+            <span>Custom Rates &amp; Flexible Pricing</span>
+          </div>
+          <h3 class="font-display text-2xl font-bold text-white">Let's Discuss &amp; Negotiate Your Package</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Every creator and brand has unique goals. Pricing is flexible and open to negotiation based on your project scope, turnaround time, and bundle volume — whether you need a single thumbnail, an AMV edit, or ongoing monthly management.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto shrink-0">
+          <a href="https://discord.gg/WqyyGvub" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-initial px-5 py-3 rounded-xl bg-discordBlurple text-white font-semibold text-xs sm:text-sm hover:brightness-110 transition-all shadow-lg shadow-discordBlurple/25 flex items-center justify-center gap-2">
+            <i data-lucide="message-square" class="w-4 h-4"></i>
+            <span>Message on Discord Server</span>
+          </a>
+          <a href="mailto:kaisetsu86@gmail.com?subject=Project%20Inquiry%20for%20Kaisetsu" class="flex-1 sm:flex-initial px-5 py-3 rounded-xl bg-obsidian border border-white/15 text-white font-semibold text-xs sm:text-sm hover:border-amberAccent/60 hover:text-amberAccent transition-all flex items-center justify-center gap-2">
+            <i data-lucide="mail" class="w-4 h-4 text-amberAccent"></i>
+            <span>Email Kaisetsu</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 6. CONTACT SECTION & FOOTER                                           -->
+  <!-- ===================================================================== -->
+  <section id="contact" class="py-24 reveal">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-3xl bg-surface border border-white/10 p-6 sm:p-12 shadow-2xl relative overflow-hidden">
+        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-indigoAccent via-emeraldAccent to-amberAccent"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-10">
+          <!-- Left Direct Contact Cards -->
+          <div class="lg:col-span-2 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-mono font-semibold uppercase tracking-widest text-amberAccent">Get In Touch</span>
+              <h2 class="font-display text-3xl font-bold text-white mt-1 mb-3">Start a Conversation</h2>
+              <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                Join my Discord server directly, add my Discord ID, or send an email to discuss your idea, negotiate rates, and browse my full Drive Vault.
+              </p>
+
+              <!-- Direct Contact Cards -->
+              <div class="space-y-3 mb-4">
+                <!-- 1. Prominent Clickable Discord Server Card -->
+                <a href="https://discord.gg/WqyyGvub" target="_blank" rel="noopener noreferrer" class="block p-4 rounded-2xl bg-discordBlurple/15 border border-discordBlurple/50 hover:bg-discordBlurple/25 transition-all group">
+                  <div class="flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3 min-w-0">
+                      <div class="w-10 h-10 rounded-xl bg-discordBlurple flex items-center justify-center text-white shrink-0 shadow-md">
+                        <i data-lucide="message-square" class="w-5 h-5"></i>
+                      </div>
+                      <div class="min-w-0">
+                        <p class="text-xs font-bold text-white group-hover:text-indigo-200 transition-colors">Join Discord Server</p>
+                        <p class="text-xs font-mono text-indigo-300 truncate">discord.gg/WqyyGvub</p>
+                      </div>
+                    </div>
+                    <span class="px-3 py-1.5 rounded-lg bg-discordBlurple text-white text-xs font-bold shrink-0 inline-flex items-center gap-1">
+                      <span>Join</span>
+                      <i data-lucide="external-link" class="w-3 h-3"></i>
+                    </span>
+                  </div>
+                </a>
+
+                <!-- 2. Discord ID One-Click Copy -->
+                <div class="p-3.5 rounded-xl bg-obsidian border border-white/10 flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <i data-lucide="at-sign" class="w-4 h-4 text-indigoAccent shrink-0"></i>
+                    <div class="min-w-0">
+                      <p class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Discord Username</p>
+                      <p class="text-xs sm:text-sm text-white font-mono truncate">Kaisetsu_0</p>
+                    </div>
+                  </div>
+                  <button type="button" class="copy-discord-trigger px-3 py-1.5 rounded-lg bg-surfaceLight hover:bg-indigoAccent text-xs font-semibold text-white transition-colors shrink-0 inline-flex items-center gap-1">
+                    <i data-lucide="copy" class="w-3 h-3"></i>
+                    <span>Copy ID</span>
+                  </button>
+                </div>
+
+                <!-- 3. Direct Email Card (Mailto + Copy) -->
+                <div class="p-3.5 rounded-xl bg-obsidian border border-white/10 flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <i data-lucide="mail" class="w-4 h-4 text-amberAccent shrink-0"></i>
+                    <div class="min-w-0">
+                      <p class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Direct Email</p>
+                      <a href="mailto:kaisetsu86@gmail.com?subject=Project%20Inquiry%20for%20Kaisetsu" id="email-text" class="text-xs sm:text-sm text-slate-200 hover:text-amberAccent font-mono truncate block transition-colors">kaisetsu86@gmail.com</a>
+                    </div>
+                  </div>
+                  <button id="copy-email-btn" type="button" class="px-3 py-1.5 rounded-lg bg-surfaceLight hover:bg-amberAccent hover:text-obsidian text-xs font-semibold text-white transition-colors shrink-0 inline-flex items-center gap-1">
+                    <i data-lucide="copy" class="w-3 h-3"></i>
+                    <span>Copy</span>
+                  </button>
+                </div>
+
+                <!-- 4. Google Drive Portfolio Vault Quick-Access Card -->
+                <a href="https://drive.google.com/drive/folders/1vkj7a3zdtStD7N0KTf2BzYruTCGEMOZJ" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-obsidian border border-amberAccent/30 hover:border-amberAccent transition-all flex items-center justify-between gap-2 group">
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <i data-lucide="folder-open" class="w-4 h-4 text-amberAccent shrink-0"></i>
+                    <div class="min-w-0">
+                      <p class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Google Drive Vault</p>
+                      <p class="text-xs sm:text-sm text-amberAccent font-medium truncate">Full Raw &amp; Graded Samples</p>
+                    </div>
+                  </div>
+                  <span class="px-3 py-1.5 rounded-lg bg-amberAccent/15 group-hover:bg-amberAccent group-hover:text-obsidian text-amberAccent text-xs font-semibold transition-colors shrink-0 inline-flex items-center gap-1">
+                    <span>Open</span>
+                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                  </span>
+                </a>
+              </div>
+              <p id="copy-feedback" class="text-xs text-emeraldAccent hidden"></p>
+            </div>
+          </div>
+
+          <!-- Right Interactive Quick-Inquiry Composer -->
+          <div class="lg:col-span-3">
+            <form id="contact-form" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="name" class="block text-xs font-medium text-slate-300 mb-1.5">Your Name / Handle</label>
+                  <input type="text" id="name" required placeholder="Alex Rivera" class="w-full px-4 py-3 rounded-xl bg-obsidian border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigoAccent transition-colors" />
+                </div>
+                <div>
+                  <label for="email" class="block text-xs font-medium text-slate-300 mb-1.5">Your Email or Discord</label>
+                  <input type="text" id="email" required placeholder="alex@creator.com or @alex" class="w-full px-4 py-3 rounded-xl bg-obsidian border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigoAccent transition-colors" />
+                </div>
+              </div>
+
+              <div>
+                <label for="service-type" class="block text-xs font-medium text-slate-300 mb-1.5">Service Needed</label>
+                <select id="service-type" class="w-full px-4 py-3 rounded-xl bg-obsidian border border-white/10 text-sm text-white focus:outline-none focus:border-indigoAccent transition-colors">
+                  <option value="Video Editing">Video Editing &amp; AMVs</option>
+                  <option value="Color Grading">Cinematic Color Grading</option>
+                  <option value="Logos & Branding">Brand &amp; Logo Design</option>
+                  <option value="Posters & Graphics">Poster &amp; Thumbnail Design</option>
+                  <option value="Social Media Management">Social Media Management</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="message" class="block text-xs font-medium text-slate-300 mb-1.5">Project Brief &amp; Budget Notes</label>
+                <textarea id="message" rows="4" required placeholder="Tell me about your video, color grade, logo/poster idea, or monthly channel needs..." class="w-full px-4 py-3 rounded-xl bg-obsidian border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigoAccent transition-colors resize-none"></textarea>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button type="submit" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-indigoAccent via-emeraldAccent to-amberAccent text-obsidian font-bold text-xs sm:text-sm hover:opacity-95 transition-opacity shadow-lg flex items-center justify-center gap-2">
+                  <i data-lucide="send" class="w-4 h-4"></i>
+                  <span>Send via Email App</span>
+                </button>
+                <button type="button" id="copy-brief-discord-btn" class="w-full py-3.5 px-4 rounded-xl bg-discordBlurple text-white font-bold text-xs sm:text-sm hover:brightness-110 transition-all shadow-lg flex items-center justify-center gap-2">
+                  <i data-lucide="copy" class="w-4 h-4"></i>
+                  <span>Copy Brief &amp; Open Discord</span>
+                </button>
+              </div>
+
+              <!-- Form Confirmation Message Box -->
+              <div id="form-success" class="hidden p-4 rounded-xl bg-emeraldAccent/10 border border-emeraldAccent/30 text-emeraldAccent text-sm flex items-center gap-3">
+                <i data-lucide="check-circle-2" class="w-5 h-5 shrink-0"></i>
+                <div>
+                  <p class="font-semibold">Ready to Send!</p>
+                  <p id="form-success-detail" class="text-xs text-slate-300 mt-0.5">Opening your email client to kaisetsu86@gmail.com.</p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="font-display font-bold tracking-widest text-slate-300">KAISETSU</p>
+      <div class="flex flex-wrap items-center justify-center gap-4 text-slate-400">
+        <a href="https://discord.gg/WqyyGvub" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-300 transition-colors inline-flex items-center gap-1.5 font-medium">
+          <i data-lucide="message-square" class="w-3.5 h-3.5 text-discordBlurple"></i>
+          <span>Discord Server</span>
+        </a>
+        <span>•</span>
+        <button type="button" class="copy-discord-trigger hover:text-indigoAccent transition-colors inline-flex items-center gap-1.5">
+          <i data-lucide="at-sign" class="w-3.5 h-3.5 text-indigoAccent"></i>
+          <span>Kaisetsu_0</span>
+        </button>
+        <span>•</span>
+        <a href="mailto:kaisetsu86@gmail.com" class="hover:text-amberAccent transition-colors inline-flex items-center gap-1.5">
+          <i data-lucide="mail" class="w-3.5 h-3.5 text-amberAccent"></i>
+          <span>kaisetsu86@gmail.com</span>
+        </a>
+        <span>•</span>
+        <a href="https://drive.google.com/drive/folders/1vkj7a3zdtStD7N0KTf2BzYruTCGEMOZJ" target="_blank" rel="noopener noreferrer" class="hover:text-amberAccent transition-colors inline-flex items-center gap-1.5">
+          <i data-lucide="folder-open" class="w-3.5 h-3.5 text-amberAccent"></i>
+          <span>Drive Vault</span>
+        </a>
+      </div>
+      <p>&copy; <span id="year"></span> Kaisetsu Creative Studio.</p>
+    </div>
+  </footer>
+
+  <!-- Floating Copy Toast Notification -->
+  <div id="global-toast" class="fixed bottom-5 right-5 z-50 hidden items-center gap-2.5 px-4 py-3 rounded-xl bg-surface border border-emeraldAccent/40 text-white text-xs sm:text-sm font-medium shadow-2xl">
+    <i data-lucide="check-circle-2" class="w-4 h-4 text-emeraldAccent shrink-0"></i>
+    <span id="global-toast-text">Copied to clipboard!</span>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- LIGHTBOX MODAL FOR FULL SAMPLE ARTWORK INSPECTION                     -->
+  <!-- ===================================================================== -->
+  <div id="project-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+    <div class="bg-surface border border-white/15 rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl transform transition-all">
+      <!-- Full Artwork Canvas Container -->
+      <div class="relative aspect-[16/10] bg-obsidian overflow-hidden">
+        <div id="modal-artwork-slot" class="w-full h-full"></div>
+        <button id="close-modal" aria-label="Close modal" class="absolute top-3 right-3 z-20 w-9 h-9 rounded-full bg-obsidian/85 border border-white/20 text-white hover:text-amberAccent flex items-center justify-center shadow-lg">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+        <span id="modal-category" class="absolute bottom-3 left-3 z-20 px-3 py-1 rounded-lg bg-obsidian/85 backdrop-blur-md text-xs font-semibold text-amberAccent border border-amberAccent/30"></span>
+      </div>
+
+      <!-- Details & Request CTA -->
+      <div class="p-6 sm:p-8">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <h3 id="modal-title" class="font-display text-2xl font-bold text-white"></h3>
+          <span id="modal-role" class="text-xs font-medium text-indigoAccent bg-indigoAccent/10 border border-indigoAccent/25 px-2.5 py-1 rounded-md"></span>
+        </div>
+        <p id="modal-desc" class="text-slate-300 text-sm leading-relaxed mb-5"></p>
+        <div class="mb-6">
+          <p class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-2">Tools &amp; Techniques Used</p>
+          <div id="modal-tags" class="flex flex-wrap gap-2"></div>
+        </div>
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-white/10">
+          <div class="flex flex-wrap items-center gap-2">
+            <a href="https://discord.gg/WqyyGvub" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-discordBlurple text-white font-bold text-xs sm:text-sm hover:brightness-110 transition-all inline-flex items-center gap-1.5">
+              <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+              <span>Discuss on Discord</span>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1vkj7a3zdtStD7N0KTf2BzYruTCGEMOZJ" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2.5 rounded-xl bg-amberAccent/15 border border-amberAccent/40 text-amberAccent hover:bg-amberAccent hover:text-obsidian text-xs font-semibold transition-all inline-flex items-center gap-1.5">
+              <i data-lucide="folder-open" class="w-3.5 h-3.5"></i>
+              <span>Drive Vault</span>
+            </a>
+            <button id="modal-request-btn" type="button" class="px-3.5 py-2.5 rounded-xl bg-obsidian border border-white/15 text-slate-200 hover:text-white text-xs font-semibold transition-all">
+              Email Brief
+            </button>
+          </div>
+          <button id="close-modal-bottom" type="button" class="text-xs text-slate-400 hover:text-white">Close Preview</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- JAVASCRIPT LOGIC: PAINTERLY RENDERER, 7 SAMPLES, SLIDER & MODAL       -->
+  <!-- ===================================================================== -->
+  <script>
+    const DISCORD_INVITE_URL = 'https://discord.gg/WqyyGvub';
+    const DRIVE_FOLDER_URL = 'https://drive.google.com/drive/folders/1vkj7a3zdtStD7N0KTf2BzYruTCGEMOZJ';
+    const DRIVE_FOLDER_EMBED_URL = 'https://drive.google.com/embeddedfolderview?id=1vkj7a3zdtStD7N0KTf2BzYruTCGEMOZJ#grid';
+
+    // =========================================================================
+    // 1. PIXEL-ALIGNED PAINTERLY SCENE RENDERER (FALLBACK & LOCAL TESTER)
+    // =========================================================================
+    function renderMeadowPairToCanvases(beforeCanvas, afterCanvas, customImg = null) {
+      const W = 1200;
+      const H = 900;
+      beforeCanvas.width = W;
+      beforeCanvas.height = H;
+      afterCanvas.width = W;
+      afterCanvas.height = H;
+
+      const bCtx = beforeCanvas.getContext('2d');
+      const aCtx = afterCanvas.getContext('2d');
+
+      if (customImg) {
+        const scale = Math.max(W / customImg.width, H / customImg.height);
+        const dw = customImg.width * scale;
+        const dh = customImg.height * scale;
+        const dx = (W - dw) / 2;
+        const dy = (H - dh) / 2;
+
+        bCtx.save();
+        bCtx.filter = 'saturate(22%) contrast(86%) brightness(104%)';
+        bCtx.drawImage(customImg, dx, dy, dw, dh);
+        bCtx.restore();
+
+        aCtx.save();
+        aCtx.filter = 'contrast(118%) saturate(128%) brightness(96%)';
+        aCtx.drawImage(customImg, dx, dy, dw, dh);
+        aCtx.globalCompositeOperation = 'soft-light';
+        const warmGrad = aCtx.createLinearGradient(0, 0, W * 0.4, H);
+        warmGrad.addColorStop(0, 'rgba(255, 194, 158, 0.78)');
+        warmGrad.addColorStop(0.5, 'rgba(232, 148, 114, 0.42)');
+        warmGrad.addColorStop(1, 'rgba(18, 46, 26, 0.75)');
+        aCtx.fillStyle = warmGrad;
+        aCtx.fillRect(0, 0, W, H);
+        aCtx.restore();
+        return;
+      }
+
+      let seed = 40078;
+      function rand() {
+        seed = (seed * 16807) % 2147483647;
+        return (seed - 1) / 2147483646;
+      }
+
+      const leftFoliageClusters = [];
+      for (let i = 0; i < 165; i++) {
+        const angle = rand() * Math.PI * 2;
+        const radius = Math.pow(rand(), 0.7) * 235;
+        const cx = 130 + Math.cos(angle) * radius * 1.15;
+        const cy = 110 + Math.sin(angle) * radius * 0.85;
+        if (cx < 490 && cy < 360) {
+          leftFoliageClusters.push({
+            x: cx,
+            y: cy,
+            r: 8 + rand() * 18,
+            rot: rand() * Math.PI,
+            alpha: 0.35 + rand() * 0.45
+          });
+        }
+      }
+
+      const grassBlades = [];
+      for (let i = 0; i < 520; i++) {
+        const gx = rand() * W;
+        const gy = 485 + Math.pow(rand(), 0.85) * 425;
+        const height = 45 + rand() * 115;
+        const lean = (rand() - 0.5) * 55;
+        grassBlades.push({
+          x: gx,
+          y: gy,
+          h: height,
+          lean: lean,
+          w: 1.4 + rand() * 2.4,
+          shade: rand()
+        });
+      }
+
+      const daisies = [
+        { x: 105, y: 868, r: 19, tilt: 0.72 },
+        { x: 195, y: 805, r: 11, tilt: 0.65 },
+        { x: 255, y: 745, r: 12, tilt: 0.62 },
+        { x: 315, y: 790, r: 10, tilt: 0.68 },
+        { x: 365, y: 720, r: 9, tilt: 0.6 },
+        { x: 430, y: 765, r: 12, tilt: 0.64 },
+        { x: 495, y: 710, r: 11, tilt: 0.58 },
+        { x: 545, y: 695, r: 13, tilt: 0.6 },
+        { x: 585, y: 740, r: 10, tilt: 0.66 },
+        { x: 635, y: 780, r: 11, tilt: 0.68 },
+        { x: 690, y: 830, r: 13, tilt: 0.7 },
+        { x: 735, y: 755, r: 9, tilt: 0.62 },
+        { x: 875, y: 745, r: 10, tilt: 0.6 },
+        { x: 945, y: 695, r: 12, tilt: 0.58 },
+        { x: 995, y: 660, r: 11, tilt: 0.56 },
+        { x: 1045, y: 715, r: 13, tilt: 0.62 },
+        { x: 1095, y: 685, r: 10, tilt: 0.58 },
+        { x: 1140, y: 745, r: 11, tilt: 0.64 },
+        { x: 1015, y: 790, r: 12, tilt: 0.66 },
+        { x: 835, y: 815, r: 10, tilt: 0.68 }
+      ];
+
+      function drawScene(ctx, isGraded) {
+        const skyGrad = ctx.createLinearGradient(0, 0, W * 0.25, H * 0.68);
+        if (isGraded) {
+          skyGrad.addColorStop(0, '#f4d9c8');
+          skyGrad.addColorStop(0.32, '#f7cbb3');
+          skyGrad.addColorStop(0.62, '#e4a385');
+          skyGrad.addColorStop(1, '#585c48');
+        } else {
+          skyGrad.addColorStop(0, '#f6f6f3');
+          skyGrad.addColorStop(0.45, '#e8e8e4');
+          skyGrad.addColorStop(0.75, '#cfd1cb');
+          skyGrad.addColorStop(1, '#8c8f87');
+        }
+        ctx.fillStyle = skyGrad;
+        ctx.fillRect(0, 0, W, H);
+
+        const mistBloom = ctx.createRadialGradient(W * 0.62, H * 0.24, 30, W * 0.62, H * 0.24, 520);
+        if (isGraded) {
+          mistBloom.addColorStop(0, 'rgba(255, 226, 204, 0.85)');
+          mistBloom.addColorStop(0.55, 'rgba(235, 162, 128, 0.42)');
+          mistBloom.addColorStop(1, 'rgba(235, 162, 128, 0)');
+        } else {
+          mistBloom.addColorStop(0, 'rgba(255, 255, 252, 0.92)');
+          mistBloom.addColorStop(0.6, 'rgba(232, 233, 228, 0.45)');
+          mistBloom.addColorStop(1, 'rgba(232, 233, 228, 0)');
+        }
+        ctx.fillStyle = mistBloom;
+        ctx.fillRect(0, 0, W, H * 0.72);
+
+        ctx.save();
+        ctx.filter = 'blur(12px)';
+        ctx.fillStyle = isGraded ? 'rgba(176, 123, 98, 0.48)' : 'rgba(155, 158, 150, 0.42)';
+        ctx.beginPath();
+        ctx.arc(960, 145, 165, 0, Math.PI * 2);
+        ctx.arc(1110, 215, 185, 0, Math.PI * 2);
+        ctx.arc(845, 275, 130, 0, Math.PI * 2);
+        ctx.arc(1030, 355, 175, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        ctx.save();
+        ctx.strokeStyle = isGraded ? '#23281d' : '#5e6159';
+        ctx.lineCap = 'round';
+        const branches = [
+          { x1: -10, y1: 185, cx: 165, cy: 135, x2: 335, y2: 20, w: 7 },
+          { x1: 85, y1: 155, cx: 215, cy: 150, x2: 385, y2: 115, w: 4.5 },
+          { x1: 35, y1: 95, cx: 145, cy: 65, x2: 245, y2: -10, w: 5 },
+          { x1: 165, y1: 105, cx: 270, cy: 95, x2: 435, y2: 65, w: 3 },
+          { x1: 125, y1: 150, cx: 195, cy: 195, x2: 275, y2: 235, w: 2.8 }
+        ];
+        branches.forEach(b => {
+          ctx.lineWidth = b.w;
+          ctx.beginPath();
+          ctx.moveTo(b.x1, b.y1);
+          ctx.quadraticCurveTo(b.cx, b.cy, b.x2, b.y2);
+          ctx.stroke();
+        });
+
+        leftFoliageClusters.forEach(lf => {
+          ctx.save();
+          ctx.translate(lf.x, lf.y);
+          ctx.rotate(lf.rot);
+          ctx.fillStyle = isGraded
+            ? `rgba(28, 36, 22, ${lf.alpha + 0.15})`
+            : `rgba(92, 96, 87, ${lf.alpha})`;
+          ctx.beginPath();
+          ctx.ellipse(0, 0, lf.r, lf.r * 0.42, 0, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        });
+        ctx.restore();
+
+        const midMeadow = ctx.createLinearGradient(0, 440, 0, 650);
+        if (isGraded) {
+          midMeadow.addColorStop(0, 'rgba(98, 96, 74, 0.35)');
+          midMeadow.addColorStop(0.5, '#253522');
+          midMeadow.addColorStop(1, '#142214');
+        } else {
+          midMeadow.addColorStop(0, 'rgba(182, 185, 177, 0.45)');
+          midMeadow.addColorStop(0.5, '#7c8177');
+          midMeadow.addColorStop(1, '#5c6158');
+        }
+        ctx.fillStyle = midMeadow;
+        ctx.beginPath();
+        ctx.moveTo(0, 480);
+        ctx.quadraticCurveTo(380, 445, 760, 465);
+        ctx.quadraticCurveTo(990, 475, W, 450);
+        ctx.lineTo(W, H);
+        ctx.lineTo(0, H);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.save();
+        ctx.fillStyle = isGraded ? '#111e12' : '#43483f';
+        ctx.beginPath();
+        ctx.ellipse(795, 535, 155, 44, -0.05, 0, Math.PI * 2);
+        ctx.fill();
+        for (let f = -130; f <= 135; f += 18) {
+          ctx.beginPath();
+          ctx.moveTo(795 + f, 535);
+          ctx.lineTo(795 + f + (f * 0.18), 475 + Math.abs(f) * 0.18);
+          ctx.lineTo(795 + f + 12, 535);
+          ctx.fill();
+        }
+        ctx.restore();
+
+        const fgMeadow = ctx.createLinearGradient(0, 560, 0, H);
+        if (isGraded) {
+          fgMeadow.addColorStop(0, '#182918');
+          fgMeadow.addColorStop(0.55, '#0f1c10');
+          fgMeadow.addColorStop(1, '#081009');
+        } else {
+          fgMeadow.addColorStop(0, '#62675e');
+          fgMeadow.addColorStop(0.55, '#4b5048');
+          fgMeadow.addColorStop(1, '#393d37');
+        }
+        ctx.fillStyle = fgMeadow;
+        ctx.fillRect(0, 565, W, H - 565);
+
+        // Left Subject: Black Cat Facing Right
+        ctx.save();
+        ctx.translate(310, 475);
+        if (isGraded) {
+          ctx.shadowColor = 'rgba(242, 185, 148, 0.28)';
+          ctx.shadowBlur = 10;
+          ctx.shadowOffsetX = 3;
+          ctx.shadowOffsetY = -2;
+        }
+        ctx.fillStyle = isGraded ? '#070807' : '#1e201d';
+        ctx.beginPath();
+        ctx.moveTo(-48, 255);
+        ctx.bezierCurveTo(-56, 195, -38, 128, -4, 92);
+        ctx.lineTo(-10, 44);
+        ctx.lineTo(14, 72);
+        ctx.quadraticCurveTo(26, 68, 38, 72);
+        ctx.lineTo(58, 45);
+        ctx.lineTo(54, 90);
+        ctx.quadraticCurveTo(64, 104, 62, 114);
+        ctx.lineTo(53, 124);
+        ctx.quadraticCurveTo(50, 136, 42, 144);
+        ctx.bezierCurveTo(56, 175, 58, 218, 46, 255);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+        // Right Subject: White Cat Facing Left
+        ctx.save();
+        ctx.translate(825, 505);
+        if (isGraded) {
+          ctx.shadowColor = 'rgba(255, 214, 192, 0.65)';
+          ctx.shadowBlur = 16;
+          ctx.shadowOffsetX = 4;
+          ctx.shadowOffsetY = -3;
+        }
+        const whiteCatGrad = ctx.createLinearGradient(-45, 40, 65, 225);
+        if (isGraded) {
+          whiteCatGrad.addColorStop(0, '#b7b4b8');
+          whiteCatGrad.addColorStop(0.45, '#e8dfe0');
+          whiteCatGrad.addColorStop(1, '#fff1eb');
+        } else {
+          whiteCatGrad.addColorStop(0, '#c8cbc8');
+          whiteCatGrad.addColorStop(0.5, '#e6e8e5');
+          whiteCatGrad.addColorStop(1, '#f7f8f6');
+        }
+        ctx.fillStyle = whiteCatGrad;
+        ctx.beginPath();
+        ctx.moveTo(-42, 225);
+        ctx.bezierCurveTo(-50, 185, -45, 145, -34, 118);
+        ctx.quadraticCurveTo(-44, 108, -46, 98);
+        ctx.lineTo(-54, 88);
+        ctx.quadraticCurveTo(-53, 76, -42, 65);
+        ctx.lineTo(-46, 36);
+        ctx.lineTo(-26, 54);
+        ctx.quadraticCurveTo(-14, 50, -4, 54);
+        ctx.lineTo(14, 30);
+        ctx.lineTo(14, 68);
+        ctx.bezierCurveTo(42, 102, 58, 162, 52, 225);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = isGraded ? 'rgba(130, 122, 128, 0.35)' : 'rgba(155, 160, 156, 0.35)';
+        ctx.beginPath();
+        ctx.moveTo(-34, 118);
+        ctx.bezierCurveTo(-22, 145, -18, 185, -24, 225);
+        ctx.lineTo(-42, 225);
+        ctx.bezierCurveTo(-50, 185, -45, 145, -34, 118);
+        ctx.fill();
+        ctx.restore();
+
+        grassBlades.forEach(gb => {
+          ctx.strokeStyle = isGraded
+            ? (gb.shade > 0.5 ? '#1c301d' : '#0c170d')
+            : (gb.shade > 0.5 ? '#6e7369' : '#464b43');
+          ctx.lineWidth = gb.w;
+          ctx.beginPath();
+          ctx.moveTo(gb.x, gb.y);
+          ctx.quadraticCurveTo(gb.x + gb.lean * 0.45, gb.y - gb.h * 0.55, gb.x + gb.lean, gb.y - gb.h);
+          ctx.stroke();
+        });
+
+        daisies.forEach(d => {
+          ctx.save();
+          ctx.translate(d.x, d.y);
+          ctx.scale(1, d.tilt);
+          const petalColor = isGraded ? '#f3ece0' : '#f2f3ef';
+          const centerColor = isGraded ? '#d9912b' : '#cbb25a';
+          ctx.fillStyle = petalColor;
+          for (let p = 0; p < 11; p++) {
+            const a = (p / 11) * Math.PI * 2;
+            ctx.save();
+            ctx.rotate(a);
+            ctx.beginPath();
+            ctx.ellipse(d.r * 0.62, 0, d.r * 0.48, d.r * 0.18, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+          }
+          ctx.fillStyle = centerColor;
+          ctx.beginPath();
+          ctx.arc(0, 0, d.r * 0.28, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        });
+
+        if (isGraded) {
+          const vig = ctx.createRadialGradient(W * 0.5, H * 0.48, W * 0.32, W * 0.5, H * 0.5, W * 0.72);
+          vig.addColorStop(0, 'rgba(0,0,0,0)');
+          vig.addColorStop(1, 'rgba(10, 14, 10, 0.42)');
+          ctx.fillStyle = vig;
+          ctx.fillRect(0, 0, W, H);
+        }
+      }
+
+      drawScene(bCtx, false);
+      drawScene(aCtx, true);
+    }
+
+    const mainBeforeCanvas = document.getElementById('before-grade-canvas');
+    const mainAfterCanvas = document.getElementById('after-grade-canvas');
+    const mainBeforeImg = document.getElementById('before-grade-img');
+    const mainAfterImg = document.getElementById('after-grade-img');
+    renderMeadowPairToCanvases(mainBeforeCanvas, mainAfterCanvas);
+
+    // Split preview fallback image for Sample 01 card & modal
+    const cardSplitCanvas = document.createElement('canvas');
+    cardSplitCanvas.width = 1200;
+    cardSplitCanvas.height = 750;
+    const csCtx = cardSplitCanvas.getContext('2d');
+    csCtx.drawImage(mainBeforeCanvas, 0, 60, 600, 750, 0, 0, 600, 750);
+    csCtx.drawImage(mainAfterCanvas, 600, 60, 600, 750, 600, 0, 600, 750);
+    csCtx.fillStyle = 'rgba(255,255,255,0.88)';
+    csCtx.fillRect(598.5, 0, 3, 750);
+    const sample01SplitDataUrl = cardSplitCanvas.toDataURL('image/png');
+
+    // Poster frame for 1000001433.mp4
+    const videoPosterCanvas = document.createElement('canvas');
+    videoPosterCanvas.width = 1280;
+    videoPosterCanvas.height = 720;
+    const vpCtx = videoPosterCanvas.getContext('2d');
+    const vpGrad = vpCtx.createRadialGradient(480, 360, 60, 640, 360, 760);
+    vpGrad.addColorStop(0, '#18261b');
+    vpGrad.addColorStop(0.55, '#0b100c');
+    vpGrad.addColorStop(1, '#040504');
+    vpCtx.fillStyle = vpGrad;
+    vpCtx.fillRect(0, 0, 1280, 720);
+    vpCtx.fillStyle = 'rgba(248, 250, 252, 0.94)';
+    vpCtx.font = 'bold 54px "Playfair Display", Georgia, serif';
+    vpCtx.textAlign = 'center';
+    vpCtx.fillText('THE END OF LOVE', 640, 355);
+    vpCtx.fillStyle = 'rgba(167, 243, 208, 0.78)';
+    vpCtx.font = 'italic 24px "Playfair Display", Georgia, serif';
+    vpCtx.fillText('Même dans un sommeil éternel — Shingeki no Kyojin Edit', 640, 405);
+    const video01PosterUrl = videoPosterCanvas.toDataURL('image/png');
+
+    // =========================================================================
+    // 2. ALL 7 SAMPLE WORKS DATA
+    // =========================================================================
+    const sampleProjects = [
+      {
+        id: 1,
+        title: "Misty Meadow & Golden Sunset",
+        category: "grading",
+        categoryLabel: "Color Grading",
+        role: "Colorist",
+        accent: "emerald",
+        summary: "Full-frame color grade transforming a cool misty monochrome shot of two cats in a daisy meadow into a warm golden-hour sunset & deep forest-green look.",
+        details: "Cropped cleanly to full-frame without letterbox bars, this grade transforms desaturated overcast mist (1000040078.jpg) into a glowing golden-peach sky (1000040080.png) while deepening the meadow shadows into rich forest emerald, adding warm sunset rim light onto the white cat and crisp silhouette contrast on the black cat.",
+        tags: ["Tone Curves", "Split Toning", "HSL Balance", "Golden Hour Grade"],
+        artworkHtml: `
+          <div class="relative w-full h-full overflow-hidden">
+            <div class="grid grid-cols-2 w-full h-full">
+              <div class="relative w-full h-full overflow-hidden border-r border-white/80">
+                <img src="1000040078.jpg" alt="Raw Misty Cat Meadow" class="w-full h-full object-cover object-left" onerror="this.parentElement.parentElement.classList.add('hidden'); this.parentElement.parentElement.nextElementSibling.classList.remove('hidden');" />
+              </div>
+              <div class="relative w-full h-full overflow-hidden">
+                <img src="1000040080.png" alt="Graded Sunset Cat Meadow" class="w-full h-full object-cover object-right scale-[1.28]" onerror="this.parentElement.parentElement.classList.add('hidden'); this.parentElement.parentElement.nextElementSibling.classList.remove('hidden');" />
+              </div>
+            </div>
+            <img src="${sample01SplitDataUrl}" alt="Misty Meadow Before and After Color Grade" class="hidden w-full h-full object-cover" />
+            <span class="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded bg-black/75 text-[10px] font-mono font-semibold text-slate-200 border border-white/15">RAW</span>
+            <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/75 text-[10px] font-mono font-semibold text-amberAccent border border-amberAccent/35">GRADED</span>
+          </div>
+        `
+      },
+      {
+        id: 2,
+        title: "Cafe Charms Studio",
+        category: "branding",
+        categoryLabel: "Logos & Branding",
+        role: "Brand & Logo Designer",
+        accent: "amber",
+        summary: "Boutique calligraphy script logo paired with a clean circular badge and custom pastel charm bracelet illustration.",
+        details: "Crafted a warm, approachable visual identity for Cafe Charms Studio featuring flowing deep forest-green script typography, balanced circular framing, and a bespoke pastel star-and-heart charm bracelet icon.",
+        tags: ["Calligraphy Script", "Vector Illustration", "Brand Identity", "Pastel Palette"],
+        artworkHtml: `
+          <div class="w-full h-full bg-[#FAF9F5] flex items-center justify-center p-4">
+            <svg viewBox="0 0 400 320" class="w-full h-full max-h-[260px]">
+              <defs>
+                <path id="charmsArc" d="M 88,185 A 118,118 0 0,0 312,185" />
+              </defs>
+              <path d="M 92,180 A 110,110 0 0,1 132,78" fill="none" stroke="#18261E" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M 188,53 A 110,110 0 0,1 305,126" fill="none" stroke="#18261E" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M 310,158 A 110,110 0 0,1 306,180" fill="none" stroke="#18261E" stroke-width="4.5" stroke-linecap="round" />
+              <text x="195" y="178" text-anchor="middle" fill="#18261E" font-family="'Great Vibes', cursive" font-size="118">Cafe</text>
+              <g transform="translate(182, 184) rotate(-14)">
+                <ellipse cx="26" cy="18" rx="28" ry="12" fill="none" stroke="#6b82d6" stroke-width="1.5" />
+                <circle cx="4" cy="14" r="4.5" fill="#f9c6d8" stroke="#6b82d6" stroke-width="1" />
+                <circle cx="14" cy="8" r="4.5" fill="#fde69b" stroke="#6b82d6" stroke-width="1" />
+                <polygon points="26,2 28,6 32,6 29,9 30,13 26,11 22,13 23,9 20,6 24,6" fill="#fde69b" stroke="#6b82d6" stroke-width="1" />
+                <circle cx="38" cy="8" r="4.5" fill="#d3c4f9" stroke="#6b82d6" stroke-width="1" />
+                <circle cx="48" cy="14" r="4.5" fill="#f9c6d8" stroke="#6b82d6" stroke-width="1" />
+                <circle cx="44" cy="24" r="4.5" fill="#fde69b" stroke="#6b82d6" stroke-width="1" />
+                <circle cx="32" cy="28" r="4.5" fill="#f9c6d8" stroke="#6b82d6" stroke-width="1" />
+                <circle cx="19" cy="28" r="5" fill="#d3c4f9" stroke="#6b82d6" stroke-width="1" />
+                <circle cx="8" cy="23" r="4.5" fill="#fde69b" stroke="#6b82d6" stroke-width="1" />
+                <line x1="-2" y1="20" x2="-12" y2="25" stroke="#6b82d6" stroke-width="1.2" />
+                <line x1="-2" y1="22" x2="-11" y2="29" stroke="#6b82d6" stroke-width="1.2" />
+              </g>
+              <text fill="#18261E" font-family="'Plus Jakarta Sans', sans-serif" font-size="13.5" font-weight="600" letter-spacing="5.5">
+                <textPath href="#charmsArc" startOffset="50%" text-anchor="middle">CHARMS STUDIO</textPath>
+              </text>
+            </svg>
+          </div>
+        `
+      },
+      {
+        id: 3,
+        title: "The Study Shelter — Study With Me",
+        category: "branding",
+        categoryLabel: "Logos & Branding",
+        role: "Channel & Brand Designer",
+        accent: "indigo",
+        summary: "Vintage editorial brand mark pairing an ornate antique pocket watch emblem with classic serif typography.",
+        details: "Designed a cozy, dark-academia channel identity for 'The Study Shelter' combining a detailed antique Roman-numeral pocket watch illustration in warm parchment cream over a deep espresso-charcoal backdrop.",
+        tags: ["Channel Branding", "Vintage Illustration", "Editorial Serif", "Dark Academia"],
+        artworkHtml: `
+          <div class="w-full h-full bg-[#26211E] flex items-center justify-center p-4">
+            <svg viewBox="0 0 400 320" class="w-full h-full max-h-[260px]">
+              <g transform="translate(200, 112)" stroke="#F3EFE6" fill="none">
+                <circle cx="0" cy="-64" r="13" stroke-width="3" />
+                <rect x="-5" y="-51" width="10" height="8" rx="2" fill="#F3EFE6" />
+                <circle cx="0" cy="0" r="46" stroke-width="3.5" />
+                <circle cx="0" cy="0" r="40" stroke-width="1.2" />
+                <g stroke-width="1.5">
+                  <line x1="0" y1="-38" x2="0" y2="-32" />
+                  <line x1="19" y1="-33" x2="16" y2="-28" />
+                  <line x1="33" y1="-19" x2="28" y2="-16" />
+                  <line x1="38" y1="0" x2="32" y2="0" />
+                  <line x1="33" y1="19" x2="28" y2="16" />
+                  <line x1="19" y1="33" x2="16" y2="28" />
+                  <line x1="0" y1="38" x2="0" y2="32" />
+                  <line x1="-19" y1="33" x2="-16" y2="28" />
+                  <line x1="-33" y1="19" x2="-28" y2="16" />
+                  <line x1="-38" y1="0" x2="-32" y2="0" />
+                  <line x1="-33" y1="-19" x2="-28" y2="-16" />
+                  <line x1="-19" y1="-33" x2="-16" y2="-28" />
+                </g>
+                <circle cx="0" cy="18" r="11" stroke-width="1.2" />
+                <line x1="0" y1="18" x2="6" y2="20" stroke-width="1.2" />
+                <line x1="0" y1="0" x2="-20" y2="-16" stroke-width="2.2" stroke-linecap="round" />
+                <line x1="0" y1="0" x2="26" y2="-14" stroke-width="1.8" stroke-linecap="round" />
+                <line x1="0" y1="0" x2="-8" y2="-32" stroke-width="1" />
+                <circle cx="0" cy="0" r="2.5" fill="#F3EFE6" />
+              </g>
+              <text x="200" y="212" text-anchor="middle" fill="#F3EFE6" font-family="'Playfair Display', serif" font-size="34" font-weight="600" letter-spacing="-0.3">
+                The Study Shelter
+              </text>
+              <text x="200" y="238" text-anchor="middle" fill="#F3EFE6" opacity="0.88" font-family="'Playfair Display', serif" font-size="15" letter-spacing="0.5">
+                Study with me
+              </text>
+            </svg>
+          </div>
+        `
+      },
+      {
+        id: 4,
+        title: "Why Fruits Talking",
+        category: "branding",
+        categoryLabel: "Logos & Branding",
+        role: "Logo & Channel Designer",
+        accent: "amber",
+        summary: "High-contrast brutalist split-box wordmark engineered for instant readability across viral short-form video channels.",
+        details: "Created a punchy monochrome split-container badge ('WHY FRUITS' inverted in crisp white on solid black paired with bold 'TALKING' typography) optimized for profile avatars, video watermarks, and merch.",
+        tags: ["Brutalist Wordmark", "High-Contrast Badge", "Social Avatar", "Typography"],
+        artworkHtml: `
+          <div class="w-full h-full bg-[#FFFFFF] flex items-center justify-center p-6">
+            <svg viewBox="0 0 420 160" class="w-full max-w-[330px]">
+              <rect x="10" y="34" width="400" height="92" fill="#FFFFFF" stroke="#0B0B0D" stroke-width="3.5" />
+              <rect x="20" y="44" width="206" height="72" fill="#0B0B0D" />
+              <text x="123" y="89" text-anchor="middle" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="23" font-weight="500" letter-spacing="1.8">
+                WHY FRUITS
+              </text>
+              <text x="318" y="90" text-anchor="middle" fill="#0B0B0D" font-family="'Plus Jakarta Sans', sans-serif" font-size="25" font-weight="800" letter-spacing="1">
+                TALKING
+              </text>
+            </svg>
+          </div>
+        `
+      },
+      {
+        id: 5,
+        title: "BROKEN ME — Typographic Poster",
+        category: "posters",
+        categoryLabel: "Posters & Graphics",
+        role: "Poster & Graphic Designer",
+        accent: "indigo",
+        summary: "Minimalist conceptual typography poster slicing heavy geometric letterforms with negative space over a dusty mauve canvas.",
+        details: "Designed a moody visual art piece where oversized black geometric 'ME' letterforms are cleanly bisected by 'BROKEN' cutting through the negative space, anchored by spaced micro-copy ('• Struggling • Handling • Quiet').",
+        tags: ["Conceptual Typography", "Negative Space", "Minimalist Poster", "Color Psychology"],
+        artworkHtml: `
+          <div class="w-full h-full bg-[#9E888B] flex items-center justify-center p-5">
+            <svg viewBox="0 0 400 300" class="w-full h-full max-h-[250px]">
+              <clipPath id="topSlice">
+                <rect x="0" y="65" width="400" height="58" />
+              </clipPath>
+              <clipPath id="bottomSlice">
+                <rect x="0" y="156" width="400" height="45" />
+              </clipPath>
+              <text x="200" y="182" text-anchor="middle" fill="#090809" font-family="'Space Grotesk', sans-serif" font-size="115" font-weight="700" letter-spacing="4" clip-path="url(#topSlice)">
+                ME
+              </text>
+              <text x="200" y="182" text-anchor="middle" fill="#090809" font-family="'Space Grotesk', sans-serif" font-size="115" font-weight="700" letter-spacing="4" clip-path="url(#bottomSlice)">
+                ME
+              </text>
+              <text x="200" y="148" text-anchor="middle" fill="#090809" font-family="'Plus Jakarta Sans', sans-serif" font-size="25" font-weight="600" letter-spacing="5.5">
+                BROKEN
+              </text>
+              <text x="200" y="218" text-anchor="middle" fill="#090809" font-family="'Plus Jakarta Sans', sans-serif" font-size="10.5" font-weight="500" letter-spacing="2.2">
+                • Struggling • Handling • Quiet
+              </text>
+            </svg>
+          </div>
+        `
+      },
+      {
+        id: 6,
+        title: "Feeling Love — Trust Your Sentiments",
+        category: "posters",
+        categoryLabel: "Posters & Graphics",
+        role: "Graphic & Typography Designer",
+        accent: "amber",
+        summary: "Modern Swiss-inspired typographic poster featuring interlocked display letterforms and structured editorial micro-copy.",
+        details: "Crafted a clean editorial poster exploring tight negative-tracking display type ('Feeling Love') paired with justified micro-typography ('TRUST YOUR SENTIMENTS / POWERED BY EMOTION - LOVE AND CARE') on warm off-white stock.",
+        tags: ["Editorial Layout", "Interlocked Type", "Swiss Grid", "Poster Design"],
+        artworkHtml: `
+          <div class="w-full h-full bg-[#F4F3EF] flex items-center justify-center p-5">
+            <svg viewBox="0 0 420 310" class="w-full h-full max-h-[260px]">
+              <text x="195" y="118" text-anchor="middle" fill="#0A0A0A" font-family="'Plus Jakarta Sans', sans-serif" font-size="68" font-weight="800" letter-spacing="-3.5">
+                Feeling
+              </text>
+              <text x="268" y="168" text-anchor="middle" fill="#0A0A0A" font-family="'Plus Jakarta Sans', sans-serif" font-size="68" font-weight="800" letter-spacing="-3.5">
+                Love
+              </text>
+              <text x="210" y="196" text-anchor="middle" fill="#0A0A0A" font-family="'Plus Jakarta Sans', sans-serif" font-size="10.5" font-weight="800" letter-spacing="3.5">
+                TRUST YOUR SENTIMENTS
+              </text>
+              <g fill="#1A1A1A" font-family="'Plus Jakarta Sans', sans-serif" font-size="7.5" font-weight="700" letter-spacing="0.4">
+                <text x="115" y="224">POWERED</text>
+                <text x="198" y="224">BY</text>
+                <text x="115" y="233">EMOTION - LOVE AND</text>
+                <text x="115" y="242">CARE</text>
+                <text x="258" y="258" font-size="6.5">ABHI BANNA</text>
+              </g>
+            </svg>
+          </div>
+        `
+      },
+      {
+        id: 7,
+        title: "The End of Love — Cinematic Anime Edit",
+        category: "video",
+        categoryLabel: "Video Editing",
+        role: "Video Editor & Colorist",
+        accent: "indigo",
+        isVideoSample: true,
+        videoFile: "1000001433.mp4",
+        summary: "Emotional Shingeki no Kyojin (Attack on Titan) AMV edit featuring dramatic title cards, beat-synced cuts, and rolling film credits — hosted in my Google Drive Vault.",
+        details: "Edited 20-second emotional cinematic sequence ('1000001433.mp4') set to French vocals ('Même dans un sommeil éternel'), featuring Mikasa under the tree with the white bird wrapping her scarf, stark serif title cards ('THE END OF LOVE'), dark right-side atmospheric vignette grading, and synchronized rolling movie credits. Watch in Google Drive or toggle the embedded Drive folder viewer.",
+        tags: ["AMV Editing", "Beat-Sync Pacing", "Title Cards", "Google Drive Vault", "Rolling Credits"],
+        artworkHtml: `
+          <div class="relative w-full h-full bg-[#070908] overflow-hidden group/video">
+            <!-- Real HTML5 Video Player -->
+            <video
+              src="1000001433.mp4"
+              poster="${video01PosterUrl}"
+              controls
+              playsinline
+              preload="metadata"
+              data-sample-video="true"
+              onclick="event.stopPropagation()"
+              onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+              onloadeddata="this.classList.remove('hidden'); this.nextElementSibling.classList.add('hidden');"
+              class="relative z-10 w-full h-full object-cover bg-black"
+            ></video>
+
+            <!-- Fallback Title Card, Credits & Google Drive Vault Controls -->
+            <div data-video-fallback="true" class="hidden absolute inset-0 bg-[#070908] flex flex-col justify-between p-4">
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_45%,rgba(56,128,74,0.48),rgba(7,9,8,0.97)_74%)]"></div>
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-black/45 to-black/95"></div>
+
+              <div class="relative z-10 flex items-center justify-between text-[10px] font-mono text-slate-300 mt-5">
+                <span class="px-2.5 py-1 rounded-md bg-black/75 border border-white/15 flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-amberAccent animate-pulse"></span>
+                  1000001433.mp4 (20s)
+                </span>
+                <span class="px-2 py-0.5 rounded bg-indigoAccent/20 border border-indigoAccent/40 text-indigoAccent font-sans font-semibold">
+                  1080p • AMV Edit
+                </span>
+              </div>
+
+              <div class="relative z-10 grid grid-cols-12 items-center gap-2 my-auto px-1">
+                <div class="col-span-7 text-left">
+                  <p class="font-serif text-lg sm:text-xl font-bold text-white/95 tracking-widest animate-title-card">
+                    THE END OF LOVE
+                  </p>
+                  <p class="text-[10px] text-emerald-300/85 italic mt-1 font-serif">
+                    "Même dans un sommeil éternel..."
+                  </p>
+                </div>
+                <div class="col-span-5 h-24 overflow-hidden border-l border-white/10 pl-2.5 text-[9px] leading-tight text-slate-300/90 font-sans">
+                  <div class="animate-credits space-y-2">
+                    <div>
+                      <p class="text-slate-400">Directed by:</p>
+                      <p class="font-semibold text-white">Faysal Ahmed Rakib</p>
+                    </div>
+                    <div>
+                      <p class="text-slate-400">Produced by:</p>
+                      <p class="font-semibold text-white">Salman X Anime • Arman Editz</p>
+                    </div>
+                    <div>
+                      <p class="text-slate-400">Screenplay by:</p>
+                      <p class="font-semibold text-white">Eren • Mikasa</p>
+                    </div>
+                    <div>
+                      <p class="text-slate-400">Story by:</p>
+                      <p class="font-semibold text-white">Shingeki no kyojin</p>
+                    </div>
+                    <div>
+                      <p class="text-slate-400">Cinematography by:</p>
+                      <p class="font-semibold text-white">Wit Studio</p>
+                    </div>
+                    <div>
+                      <p class="text-slate-400">Film Editing by:</p>
+                      <p class="font-semibold text-white">Faysal Ahmed Rakib</p>
+                    </div>
+                    <div>
+                      <p class="text-slate-400">Original Score by:</p>
+                      <p class="font-semibold text-white">Salman X Anime</p>
+                    </div>
+                    <div>
+                      <p class="text-slate-400">Sound Design by:</p>
+                      <p class="font-semibold text-white">Arman Editz</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="relative z-10 flex flex-wrap items-center justify-between gap-1.5 pt-1">
+                <a
+                  href="${DRIVE_FOLDER_URL}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onclick="event.stopPropagation();"
+                  class="px-2.5 py-1 rounded-lg bg-amberAccent hover:brightness-110 text-obsidian font-sans font-bold text-[10px] shadow-md transition-all inline-flex items-center gap-1"
+                >
+                  <span>Watch in Google Drive</span>
+                </a>
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); toggleEmbeddedDriveFolder();"
+                  class="px-2.5 py-1 rounded-lg bg-indigoAccent hover:brightness-110 text-white font-sans font-semibold text-[10px] shadow-md transition-all inline-flex items-center gap-1"
+                >
+                  <span>Embed Drive Folder</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `
+      }
+    ];
+
+    let isDriveFolderEmbedded = false;
+    let defaultVideoArtworkHtml = sampleProjects.find(p => p.id === 7).artworkHtml;
+
+    function toGoogleDrivePreviewUrl(rawUrl) {
+      if (!rawUrl) return DRIVE_FOLDER_EMBED_URL;
+      const trimmed = rawUrl.trim();
+      const folderMatch = trimmed.match(/\/folders\/([a-zA-Z0-9_-]+)/);
+      if (folderMatch && folderMatch[1]) {
+        return `https://drive.google.com/embeddedfolderview?id=${folderMatch[1]}#grid`;
+      }
+      const fileMatch = trimmed.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (fileMatch && fileMatch[1]) {
+        return `https://drive.google.com/file/d/${fileMatch[1]}/preview`;
+      }
+      const idParamMatch = trimmed.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      if (idParamMatch && idParamMatch[1]) {
+        return `https://drive.google.com/file/d/${idParamMatch[1]}/preview`;
+      }
+      return trimmed;
+    }
+
+    function applyVideoSourceToSample(embedHtml, labelMessage) {
+      const videoProject = sampleProjects.find(p => p.id === 7);
+      if (videoProject) {
+        videoProject.artworkHtml = embedHtml;
+      }
+      const activeFilterBtn = document.querySelector('.filter-btn.bg-white');
+      renderProjects(activeFilterBtn ? activeFilterBtn.dataset.filter : 'all');
+
+      const modalSlot = document.getElementById('modal-artwork-slot');
+      if (!document.getElementById('project-modal').classList.contains('hidden') && videoProject) {
+        modalSlot.innerHTML = videoProject.artworkHtml;
+      }
+      if (labelMessage) {
+        copyTextWithFeedback('', labelMessage);
+      }
+    }
+
+    function toggleEmbeddedDriveFolder() {
+      isDriveFolderEmbedded = !isDriveFolderEmbedded;
+      if (isDriveFolderEmbedded) {
+        applyVideoSourceToSample(
+          `
+            <div class="relative w-full h-full bg-[#111318] overflow-hidden flex flex-col">
+              <iframe
+                src="${DRIVE_FOLDER_EMBED_URL}"
+                title="Kaisetsu Google Drive Portfolio Vault"
+                allow="autoplay; fullscreen"
+                allowfullscreen
+                onclick="event.stopPropagation()"
+                class="w-full h-full border-0 bg-white"
+              ></iframe>
+              <div class="absolute bottom-2.5 right-2.5 z-20 flex items-center gap-1.5">
+                <a
+                  href="${DRIVE_FOLDER_URL}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onclick="event.stopPropagation()"
+                  class="px-2.5 py-1 rounded-lg bg-amberAccent text-obsidian text-[10px] font-bold shadow-lg"
+                >
+                  Open Full Drive
+                </a>
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); toggleEmbeddedDriveFolder();"
+                  class="px-2.5 py-1 rounded-lg bg-obsidian/90 border border-white/20 text-white text-[10px] font-semibold shadow-lg"
+                >
+                  Show Title Card
+                </button>
+              </div>
+            </div>
+          `,
+          'Embedded Google Drive folder view!'
+        );
+      } else {
+        applyVideoSourceToSample(defaultVideoArtworkHtml, 'Switched back to AMV title card preview.');
+      }
+    }
+
+    const localVideoInput = document.createElement('input');
+    localVideoInput.type = 'file';
+    localVideoInput.accept = 'video/mp4,video/*';
+    localVideoInput.className = 'hidden';
+    document.body.appendChild(localVideoInput);
+
+    let activeLocalVideoUrl = null;
+
+    function triggerLocalVideoPicker() {
+      localVideoInput.click();
+    }
+
+    function applyGoogleDriveUrlFromInput() {
+      const inputEl = document.getElementById('modal-drive-url-input');
+      const rawVal = inputEl && inputEl.value.trim() ? inputEl.value.trim() : DRIVE_FOLDER_URL;
+      const previewUrl = toGoogleDrivePreviewUrl(rawVal);
+      isDriveFolderEmbedded = true;
+      applyVideoSourceToSample(
+        `
+          <div class="relative w-full h-full bg-black overflow-hidden">
+            <iframe
+              src="${previewUrl}"
+              allow="autoplay; fullscreen"
+              allowfullscreen
+              onclick="event.stopPropagation()"
+              class="w-full h-full border-0 bg-white"
+            ></iframe>
+            <div class="absolute bottom-2.5 right-2.5 z-20 flex items-center gap-1.5">
+              <a
+                href="${rawVal}"
+                target="_blank"
+                rel="noopener noreferrer"
+                onclick="event.stopPropagation()"
+                class="px-2.5 py-1 rounded-lg bg-amberAccent text-obsidian text-[10px] font-bold shadow-lg"
+              >
+                Open in Drive
+              </a>
+              <button
+                type="button"
+                onclick="event.stopPropagation(); toggleEmbeddedDriveFolder();"
+                class="px-2.5 py-1 rounded-lg bg-obsidian/90 border border-white/20 text-white text-[10px] font-semibold shadow-lg"
+              >
+                Reset
+              </button>
+            </div>
+          </div>
+        `,
+        'Google Drive media embedded!'
+      );
+    }
+
+    localVideoInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (activeLocalVideoUrl) {
+        URL.revokeObjectURL(activeLocalVideoUrl);
+      }
+      activeLocalVideoUrl = URL.createObjectURL(file);
+
+      applyVideoSourceToSample(
+        `
+          <div class="relative w-full h-full bg-black overflow-hidden">
+            <video
+              src="${activeLocalVideoUrl}"
+              poster="${video01PosterUrl}"
+              controls
+              playsinline
+              autoplay
+              muted
+              onclick="event.stopPropagation()"
+              class="w-full h-full object-cover bg-black"
+            ></video>
+          </div>
+        `,
+        `Loaded "${file.name}" into video player!`
+      );
+    });
+
+    // =========================================================================
+    // 3. RENDER GALLERY CARDS & CATEGORY FILTERING
+    // =========================================================================
+    const projectsGrid = document.getElementById('projects-grid');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    function renderProjects(filter = 'all') {
+      projectsGrid.innerHTML = '';
+      const filtered = filter === 'all'
+        ? sampleProjects
+        : sampleProjects.filter(p => p.category === filter);
+
+      filtered.forEach(project => {
+        const badgeColor =
+          project.accent === 'emerald'
+            ? 'text-emeraldAccent border-emeraldAccent/30'
+            : project.accent === 'amber'
+            ? 'text-amberAccent border-amberAccent/30'
+            : 'text-indigoAccent border-indigoAccent/30';
+
+        const card = document.createElement('article');
+        card.className = 'group rounded-2xl bg-surface border border-white/10 overflow-hidden hover:border-white/25 transition-all duration-300 flex flex-col cursor-pointer shadow-lg hover:-translate-y-1';
+        card.innerHTML = `
+          <div class="relative aspect-[16/11] bg-obsidian overflow-hidden border-b border-white/10">
+            <div class="w-full h-full group-hover:scale-[1.03] transition-transform duration-500">
+              ${project.artworkHtml}
+            </div>
+            <span class="absolute top-3 left-3 z-20 px-3 py-1 rounded-lg bg-obsidian/85 backdrop-blur-md text-[11px] font-semibold border ${badgeColor}">
+              ${project.categoryLabel}
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-1.5">
+                <h3 class="font-display text-lg font-bold text-white group-hover:text-amberAccent transition-colors">
+                  ${project.title}
+                </h3>
+                <span class="text-xs text-slate-500 group-hover:text-white transition-colors shrink-0">↗</span>
+              </div>
+              <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-4">
+                ${project.summary}
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/5">
+              ${project.tags.slice(0, 3).map(t => `<span class="px-2.5 py-0.5 rounded-md bg-obsidian font-mono text-[10px] text-slate-300">${t}</span>`).join('')}
+            </div>
+          </div>
+        `;
+        card.addEventListener('click', () => openModal(project));
+        projectsGrid.appendChild(card);
+      });
+    }
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => {
+          b.classList.remove('bg-white', 'text-obsidian');
+          b.classList.add('bg-surface', 'border', 'border-white/10', 'text-slate-300');
+        });
+        btn.classList.remove('bg-surface', 'border', 'border-white/10', 'text-slate-300');
+        btn.classList.add('bg-white', 'text-obsidian');
+        renderProjects(btn.dataset.filter);
+      });
+    });
+
+    renderProjects('all');
+
+    // =========================================================================
+    // 4. LIGHTBOX MODAL LOGIC
+    // =========================================================================
+    const modal = document.getElementById('project-modal');
+    const modalArtworkSlot = document.getElementById('modal-artwork-slot');
+    const modalCategory = document.getElementById('modal-category');
+    const modalTitle = document.getElementById('modal-title');
+    const modalRole = document.getElementById('modal-role');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalTags = document.getElementById('modal-tags');
+    const closeModalBtn = document.getElementById('close-modal');
+    const closeModalBottom = document.getElementById('close-modal-bottom');
+    const modalRequestBtn = document.getElementById('modal-request-btn');
+    const serviceSelect = document.getElementById('service-type');
+
+    let activeProjectCategoryLabel = '';
+
+    function openModal(project) {
+      activeProjectCategoryLabel = project.categoryLabel;
+      modalArtworkSlot.innerHTML = project.artworkHtml;
+      modalCategory.textContent = project.categoryLabel;
+      modalTitle.textContent = project.title;
+      modalRole.textContent = project.role;
+      modalDesc.textContent = project.details;
+
+      modalTags.innerHTML = project.tags
+        .map(tag => `<span class="px-3 py-1 rounded-lg bg-obsidian border border-white/10 text-xs font-mono text-slate-300">${tag}</span>`)
+        .join('');
+
+      if (project.isVideoSample) {
+        modalTags.innerHTML += `
+          <div class="w-full mt-3 pt-3 border-t border-white/10 space-y-2.5">
+            <div class="flex flex-wrap items-center gap-2">
+              <a
+                href="${DRIVE_FOLDER_URL}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3.5 py-2 rounded-lg bg-amberAccent text-obsidian text-xs font-bold hover:brightness-110 transition-all inline-flex items-center gap-1.5"
+              >
+                <span>Watch in Google Drive ↗</span>
+              </a>
+              <button
+                type="button"
+                onclick="toggleEmbeddedDriveFolder()"
+                class="px-3.5 py-2 rounded-lg bg-indigoAccent text-white text-xs font-semibold hover:brightness-110 transition-all"
+              >
+                Toggle Embedded Drive Folder
+              </button>
+              <button
+                type="button"
+                onclick="triggerLocalVideoPicker()"
+                class="px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-xs font-semibold text-slate-200 hover:border-indigoAccent transition-colors"
+              >
+                Load Local MP4
+              </button>
+            </div>
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+              <input
+                type="url"
+                id="modal-drive-url-input"
+                value="${DRIVE_FOLDER_URL}"
+                placeholder="Paste specific Google Drive video or folder link..."
+                class="flex-1 px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amberAccent"
+              />
+              <button type="button" onclick="applyGoogleDriveUrlFromInput()" class="px-3 py-2 rounded-lg bg-surfaceLight border border-amberAccent/40 text-amberAccent hover:bg-amberAccent hover:text-obsidian text-xs font-bold transition-all shrink-0">
+                Embed Link
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function hideModal() {
+      const modalVideo = document.querySelector('#modal-artwork-slot video');
+      if (modalVideo) modalVideo.pause();
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    modalRequestBtn.addEventListener('click', () => {
+      hideModal();
+      for (let i = 0; i < serviceSelect.options.length; i++) {
+        if (serviceSelect.options[i].value.toLowerCase().includes(activeProjectCategoryLabel.toLowerCase().split(' ')[0])) {
+          serviceSelect.selectedIndex = i;
+          break;
+        }
+      }
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    closeModalBtn.addEventListener('click', hideModal);
+    closeModalBottom.addEventListener('click', hideModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) hideModal();
+    });
+
+    // =========================================================================
+    // 5. INTERACTIVE BEFORE/AFTER COLOR GRADING SLIDER
+    // =========================================================================
+    const compareContainer = document.getElementById('compare-container');
+    const beforeWrapper = document.getElementById('before-wrapper');
+    const sliderHandle = document.getElementById('slider-handle');
+    const gradedBadge = document.getElementById('graded-badge');
+    const beforeBadge = document.getElementById('before-badge');
+    const altGradeTint = document.getElementById('alt-grade-tint');
+    const presetButtons = document.querySelectorAll('.preset-btn');
+    const customGradeUpload = document.getElementById('custom-grade-upload');
+    const resetSampleBtn = document.getElementById('reset-sample-btn');
+
+    let isDragging = false;
+
+    function updateSliderPosition(clientX) {
+      const rect = compareContainer.getBoundingClientRect();
+      let offsetX = clientX - rect.left;
+      offsetX = Math.max(0, Math.min(offsetX, rect.width));
+      const percentage = (offsetX / rect.width) * 100;
+      beforeWrapper.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+      sliderHandle.style.left = `${percentage}%`;
+    }
+
+    compareContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      updateSliderPosition(e.clientX);
+    });
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      updateSliderPosition(e.clientX);
+    });
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    compareContainer.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      updateSliderPosition(e.touches[0].clientX);
+    }, { passive: true });
+    window.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      updateSliderPosition(e.touches[0].clientX);
+    }, { passive: true });
+    window.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+
+    presetButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        presetButtons.forEach(b => {
+          b.classList.remove('bg-amberAccent', 'text-obsidian');
+          b.classList.add('bg-surface', 'border', 'border-white/10', 'text-slate-300');
+        });
+        btn.classList.remove('bg-surface', 'border', 'border-white/10', 'text-slate-300');
+        btn.classList.add('bg-amberAccent', 'text-obsidian');
+
+        gradedBadge.textContent = `AFTER: ${btn.dataset.label}`;
+        if (btn.dataset.preset === 'teal-amber') {
+          altGradeTint.classList.remove('hidden');
+        } else {
+          altGradeTint.classList.add('hidden');
+        }
+      });
+    });
+
+    customGradeUpload.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          if (mainBeforeImg) mainBeforeImg.classList.add('hidden');
+          if (mainAfterImg) mainAfterImg.classList.add('hidden');
+          mainBeforeCanvas.classList.remove('hidden');
+          mainAfterCanvas.classList.remove('hidden');
+          renderMeadowPairToCanvases(mainBeforeCanvas, mainAfterCanvas, img);
+          beforeBadge.textContent = 'BEFORE: Your Raw Photo';
+          gradedBadge.textContent = 'AFTER: Kaisetsu Sunset Grade Applied';
+          resetSampleBtn.classList.remove('hidden');
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    resetSampleBtn.addEventListener('click', () => {
+      customGradeUpload.value = '';
+      renderMeadowPairToCanvases(mainBeforeCanvas, mainAfterCanvas, null);
+      if (mainBeforeImg && mainBeforeImg.complete && mainBeforeImg.naturalWidth > 0) {
+        mainBeforeImg.classList.remove('hidden');
+        mainBeforeCanvas.classList.add('hidden');
+      }
+      if (mainAfterImg && mainAfterImg.complete && mainAfterImg.naturalWidth > 0) {
+        mainAfterImg.classList.remove('hidden');
+        mainAfterCanvas.classList.add('hidden');
+      }
+      beforeBadge.textContent = 'BEFORE: Misty Desaturated Raw';
+      gradedBadge.textContent = 'AFTER: Golden Hour Peach & Deep Forest Green';
+      resetSampleBtn.classList.add('hidden');
+    });
+
+    // =========================================================================
+    // 6. MOBILE MENU, COPY ACTIONS, FORM HANDLERS & SCROLL REVEAL
+    // =========================================================================
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    const copyEmailBtn = document.getElementById('copy-email-btn');
+    const emailText = document.getElementById('email-text');
+    const copyFeedback = document.getElementById('copy-feedback');
+    const globalToast = document.getElementById('global-toast');
+    const globalToastText = document.getElementById('global-toast-text');
+    let toastTimeout;
+
+    function copyTextWithFeedback(textToCopy, successMessage) {
+      if (textToCopy) {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = textToCopy;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+      }
+
+      if (copyFeedback && textToCopy) {
+        copyFeedback.textContent = successMessage;
+        copyFeedback.classList.remove('hidden');
+      }
+
+      if (globalToast && globalToastText) {
+        globalToastText.textContent = successMessage;
+        globalToast.classList.remove('hidden');
+        globalToast.classList.add('flex');
+      }
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        if (copyFeedback) copyFeedback.classList.add('hidden');
+        if (globalToast) {
+          globalToast.classList.add('hidden');
+          globalToast.classList.remove('flex');
+        }
+      }, 3000);
+    }
+
+    copyEmailBtn.addEventListener('click', () => {
+      copyTextWithFeedback(emailText.textContent.trim(), 'Email (kaisetsu86@gmail.com) copied to clipboard!');
+    });
+
+    document.querySelectorAll('.copy-discord-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        copyTextWithFeedback('Kaisetsu_0', 'Discord ID (Kaisetsu_0) copied to clipboard!');
+      });
+    });
+
+    const contactForm = document.getElementById('contact-form');
+    const formSuccess = document.getElementById('form-success');
+    const formSuccessDetail = document.getElementById('form-success-detail');
+    const copyBriefDiscordBtn = document.getElementById('copy-brief-discord-btn');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const senderName = document.getElementById('name').value.trim();
+      const senderContact = document.getElementById('email').value.trim();
+      const selectedService = document.getElementById('service-type').value;
+      const projectBrief = document.getElementById('message').value.trim();
+
+      const subject = encodeURIComponent(`[Portfolio Inquiry] ${selectedService} — ${senderName}`);
+      const body = encodeURIComponent(
+        `Hi Kaisetsu,\n\nName: ${senderName}\nContact: ${senderContact}\nService Needed: ${selectedService}\n\nProject Brief & Budget Notes:\n${projectBrief}`
+      );
+
+      formSuccessDetail.textContent = 'Opening your email client to kaisetsu86@gmail.com.';
+      formSuccess.classList.remove('hidden');
+      window.location.href = `mailto:kaisetsu86@gmail.com?subject=${subject}&body=${body}`;
+      setTimeout(() => formSuccess.classList.add('hidden'), 6000);
+    });
+
+    copyBriefDiscordBtn.addEventListener('click', () => {
+      const senderName = document.getElementById('name').value.trim() || 'Client';
+      const senderContact = document.getElementById('email').value.trim() || 'Not specified';
+      const selectedService = document.getElementById('service-type').value;
+      const projectBrief = document.getElementById('message').value.trim() || 'Interested in working together!';
+
+      const formattedBrief = `Hi Kaisetsu! 👋\n• Name: ${senderName}\n• Contact: ${senderContact}\n• Service: ${selectedService}\n• Brief: ${projectBrief}`;
+      copyTextWithFeedback(formattedBrief, 'Brief copied! Opening Discord Server (discord.gg/WqyyGvub)...');
+      formSuccessDetail.textContent = 'Brief copied to clipboard — paste it directly in the Discord server!';
+      formSuccess.classList.remove('hidden');
+      window.open(DISCORD_INVITE_URL, '_blank', 'noopener,noreferrer');
+    });
+
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Initialize Lucide Icons
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
